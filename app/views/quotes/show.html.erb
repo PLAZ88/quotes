@@ -1,0 +1,56 @@
+<div class="welcome">
+	<h2>Welcome !</h2>
+</div>
+<div class="top">
+	<h3>Quoteable Quotes:</h3>
+	<% @quotes.each do |quote| %>
+
+			<div class="individual-quotes">
+				<p><%= quote.quoted_by %></p>
+				<i><%= quote.message %></i>
+				<p>Posted by: <a href="/users/<%= quote.user.id %>"><%= quote.user.first_name %></a></p>
+				<form action = "/favorites" method = "post">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type="hidden" name="favorite[quote_id]" value="<%= quote.id %>">
+					<input type = 'submit' value = 'Add to my favorites'>
+				</form>
+			</div>
+
+
+	<% end %>
+</div>
+
+
+<div class="center">
+<h3>Your Favorites!</h3>
+<% @my_favorites.each do |favorite| %>
+<div class="individual-quotes">
+<p><%= favorite.quote.quoted_by %></p>
+<i><%= favorite.quote.message %></i>
+<p>Posted by: <%= favorite.quote.user.first_name %></p>
+<form action = "/favorites/<%= favorite.id %>" method = "post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<input type="hidden" name="_method" value="delete">
+	<input type = 'submit' value = 'Remove from favorites'>
+</form>
+
+</div>
+<% end %>
+</div>
+
+
+
+
+<div class="bottom">
+<h3>Contribute a Quote</h3>
+<form action = "/quotes" method = "post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	Name:
+	<input type='text' name=quote[quoted_by]>
+	<br><br>
+	Message:
+	<input type="text" name=quote[message]>
+	<br><br>
+	<input type = 'submit' value = 'Add Quote'>
+</form>
+</div>

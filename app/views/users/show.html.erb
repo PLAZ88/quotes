@@ -1,0 +1,12 @@
+<a href="/quotes/<%= @user.id%>">Dashboard</a>
+
+<h1>Posts by <%= @user.first_name %></h1>
+<h1>Count: <%= @quotes.count %> </h1>
+
+<% @quotes.each do |quote| %>
+<%= quote.quoted_by %>
+<br>
+<%= quote.message %>
+<br>
+<br>
+<% end %>

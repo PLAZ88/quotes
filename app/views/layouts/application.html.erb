@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quotes</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<style>
+.top, .center, .bottom {
+	width: 320px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 25px;
+}
+
+.individual-quotes {
+	border: 1px solid silver;
+	margin: 5px 0px;
+	padding: 0px 10px 10px 10px;
+}
+</style>
+
+<body>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |e| %>
+    <%= e %>
+    <br>
+    <br>
+  <% end %>
+<% end %>
+<% if current_user %>
+  <form action="/sessions/<%=current_user.id%>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Log Out">
+  </form>
+<% end %>
+<%= yield %>
+
+</body>
+</html>
